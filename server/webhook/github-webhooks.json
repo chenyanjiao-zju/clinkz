@@ -1,0 +1,76 @@
+[
+  {
+    "id": "webhook",
+    "execute-command": "/home/wang/webhook/github-webhook.sh",
+    "command-working-directory": "/home/wang/webhook/",
+    "pass-arguments-to-command":
+    [
+      {
+          "source": "header",
+          "name": "X-GitHub-Event"
+      },
+      {
+        "source": "payload",
+        "name": "sender.login"
+      },
+      {
+        "source": "payload",
+        "name": "action"
+      },
+      {
+        "source": "payload",
+        "name": "repository.full_name"
+      },
+      {
+          "source": "payload",
+          "name":"member.login"
+      },
+      {
+          "source": "payload",
+          "name":"invitation.login"
+      },
+      {
+          "source": "payload",
+          "name" :"membership.user.login"
+      },
+      {
+          "source": "payload",
+          "name":"number"
+      },
+      {
+          "source": "payload",
+          "name": "ref"
+      },
+      {
+          "source": "payload",
+          "name":"commits.0.id"
+      },
+      {
+          "source": "payload",
+          "name":"issue.number"
+      },
+      {
+          "source": "payload",
+          "name":"status"
+      }
+    ],
+    "trigger-rule":
+    {
+      "and":
+      [
+        {
+          "match":
+          {
+            "type": "payload-hash-sha1",
+            "secret": "82a38d0eb108c512ef39c5a7849b40c14fbb6b10",
+            "parameter":
+            {
+              "source": "header",
+              "name": "X-Hub-Signature"
+            }
+          }
+        }
+      ]
+    }
+  }
+]
