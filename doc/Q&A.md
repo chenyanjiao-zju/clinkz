@@ -1,3 +1,10 @@
+
+### Q: What if those Q&A cannot help me solve my problem?
+A: Try to create an issue
+[here](https://github.com/chenyanjiao-zju/clinkz/issues), we shall discuss
+together. Please read [How To Ask Questions The Smart Way
+](http://www.catb.org/~esr/faqs/smart-questions.html) first.
+
 ## On server
 
 ### Q: How can I access the server?
@@ -16,8 +23,7 @@ be better to integate using CLI. Last, monitor would consume the GPU resource,
 		penetration via a relay node with public IP address. But the bandwidth is
 		restrict to 1M. So using `scp` to send a large file is not recommended.
 
-### Q: Why Teamviewer is not recommended? Then how to use IDEs to code my
-project?
+### Q: Why Teamviewer is not recommended? Then how to use IDEs to code my project?
 A: See above. Some IDEs provides remote ssh. It might help you if you
 prefer to code in IDE. Why hesitate to use Vim? Hope Emacs finds you well.Lol.
 Moreover, better to provide an executable shellscript to help you run your job.
@@ -38,7 +44,15 @@ permission.
 
 ### Q: Why I cannot use `conda` or `activate`?
 A: Use `which conda` to check if shell can find the executable. Add the path to
-your .bashrc/.zshrc.
+your .bashrc/.zshrc. It is a legacy that former user didn't install `conda` to
+the system wide.
+
+### Q: How can I know if there is anyone else running jobs on CPU/GPU?
+A: At present, we have 2 __NVIDIA GeForce GTX 1080 Ti__ GPUs on each server. You
+can use `nvidia-smi` to check the process id which is using GPU. Moreover, you
+can use `ps` to check who is using (usually, the admin choose our fellow group
+member's name as his/her user id). Start your job early, since there might be
+more people running jobs the day before group meeting.
 
 ### Q: Why I got permission denied using `sudo`?
 A: The admin would not add you to the `sudo` user group. If you want to install
@@ -48,13 +62,18 @@ some packages, contact the admin. Usually, most packages are already installed.
 A: You can expose a local web service to public via `ngrok`.
 
 ### Q: How can I view some pictures via ssh?
-A: Go search on Google.
+A: There are several ways indeed, like `eog` with ssh X forwarding. However, it
+does not work right now. (if you solved this, please update). Thus, you can
+download your pictures via `scp` as a work arround.
 
 ### Q: How can I send/retrive files to/from server?
 A: Now the ssh is bandwidth-restrict. There would be a solution soon.
 
 ### Q: Where can I backup my directories?
 A: The admin will backup your $HOME periodically.
+
+### Q: Is there any notification I can receive about the status of server?
+A: We are considering this. Currently, we release messages in our group chat.
 
 ### Q: Can I participate in server maintaining?
 A: Yes. Your PR is really appreciated.
@@ -76,9 +95,12 @@ You should prepare a shell script for others to have a quick start! Always
 document your code! One reason is for later fellow group members to catch up
 existing work and maybe he/she is the one who helps you revise your
 paper/experiment. Use sphinx/doxygen and obey the [google coding
-style](https://google.github.io/styleguide/). Third, code review is important.
-Last, dont forget to respond to issues.
+style](https://google.github.io/styleguide/). Third, code review is important
+and dont forget to respond to issues. Last, YOU SHOULD ALWAYS REMEMBER NOT TO
+LEAK ANY PASSWORD OR PRIVATE INFOMATION IN YOUR REPOSITORY especailly you are
+about the make public the repo.
 
 ### Q: I am total new to git/GitHub, where should I start?
 A: [git](https://git-scm.com/) and [GitHub](https://github.com/).
+
 

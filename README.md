@@ -51,7 +51,7 @@ resource via `cgroup`.
 TBD:
 - `schedule`: You can schedule your job to run at a specified time, e.g. at the
 midnight.
-- `rsync`": help you backup your folder.
+- `rsync`: help you backup your folder.
 - `recover`: help you recover your folder.
 
 ### Internal

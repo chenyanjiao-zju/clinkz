@@ -9,9 +9,6 @@
 #######################################
 # Check the arch of host
 #######################################
-host() {
-
-}
 
 #######################################
 # check the usability
@@ -19,11 +16,20 @@ host() {
 #######################################
 is_installed() {
 		local test_command=$1
-		if [[ command -v ${test_command} &> /dev/null ]]; then
+		if [ command -v ${test_command} &> /dev/null ]; then
 				return 1
 		else 
 				return 0
 		fi
+}
+
+######################################
+# download packages
+######################################
+get_source() {
+		local pkg_to_get=$1
+		echo "Now get for ${pkg_to_get}"
+		curl -LJ0 ${pkg_to_get} -o ${pkg_to_get##*/}
 }
 
 #######################################
