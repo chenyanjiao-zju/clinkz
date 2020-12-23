@@ -1,9 +1,9 @@
 
 ### Q: What if those Q&A cannot help me solve my problem?
-A: Try to create an issue
-[here](https://github.com/chenyanjiao-zju/clinkz/issues), we shall discuss
-together. Please read [How To Ask Questions The Smart Way
-](http://www.catb.org/~esr/faqs/smart-questions.html) first.
+A: If you can NOT solve the problem yourself, write to the mailing list
+__server-maintain@googlegroups.com__. Please read [How To Ask Questions The Smart Way
+](http://www.catb.org/~esr/faqs/smart-questions.html) first. Please do not
+bother admin in private chat.
 
 ## On server
 
@@ -45,7 +45,10 @@ permission.
 ### Q: Why I cannot use `conda` or `activate`?
 A: Use `which conda` to check if shell can find the executable. Add the path to
 your .bashrc/.zshrc. It is a legacy that former user didn't install `conda` to
-the system wide.
+the system wide. Now `conda` has been installed to `/usr/bin/conda`, and the
+installation dir is at `/opt/anaconda3`, you shall have been added to the
+`condagp` group to have permission on conda. You should run your task in your
+own virtual environment.
 
 ### Q: How can I know if there is anyone else running jobs on CPU/GPU?
 A: At present, we have 2 __NVIDIA GeForce GTX 1080 Ti__ GPUs on each server. You
@@ -70,7 +73,8 @@ download your pictures via `scp` as a work arround.
 A: Now the ssh is bandwidth-restrict. There would be a solution soon.
 
 ### Q: Where can I backup my directories?
-A: The admin will backup your $HOME periodically.
+A: The admin will backup your $HOME periodically, in every Wed & Sat morning at 6
+am.
 
 ### Q: Is there any notification I can receive about the status of server?
 A: We are considering this. Currently, we release messages in our group chat.
@@ -98,9 +102,8 @@ paper/experiment. Use sphinx/doxygen and obey the [google coding
 style](https://google.github.io/styleguide/). Third, code review is important
 and dont forget to respond to issues. Last, YOU SHOULD ALWAYS REMEMBER NOT TO
 LEAK ANY PASSWORD OR PRIVATE INFOMATION IN YOUR REPOSITORY especailly you are
-about the make public the repo.
+about to make public the repo.
 
 ### Q: I am total new to git/GitHub, where should I start?
 A: [git](https://git-scm.com/) and [GitHub](https://github.com/).
-
 
