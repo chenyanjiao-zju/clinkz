@@ -8,7 +8,9 @@ User=nobody
 Restart=on-failure
 RestartSec=5s
 ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini
+ExecStartPost=bash /etc/frp/frp_start_post_notify.sh
 ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini
+ExecStopPost=bash /etc/frp/frp_stop_post_notify.sh
 
 [Install]
 WantedBy=multi-user.target
