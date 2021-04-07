@@ -31,12 +31,18 @@ Moreover, better to provide an executable shellscript to help you run your job.
 ### Q: I used to code with Pycharm/VS Code, and there are some configs stored in IDE, how can I run them when I am only allowd to use ssh connection?
 A: Write a shell script! Always to persist your config to disk.
 
+### Q: I got Permissioned Denied when using ssh nor scp, why?
+A: Check your command first, make sure you have specified the -oPort option. And
+If you changed your profile just now that made you enable to login, for example,
+   you specifed a wrong path for your default shell, contact the admin to help
+   you.
+
 ### Q: I logged into server, but there's nothing in current work directory, why?
 A: The admin creates a new $HOME for you.
 
-### Q: Why I can not use arrows to track my commands history?
+### Q: Why I can not use arrows to track my commands history, neither tab auto-complete?
 A: Check your default shell. Change to `bash` or `zsh` according to your
-preference.
+preference. Remember if you are using conda, it would be better to use bash.
 
 ### Q: Why I can not open/enter/write/execute some files/directories?
 A: Check your permisson on this file/dir. Contact the admin to modify your
@@ -46,9 +52,36 @@ permission.
 A: Use `which conda` to check if shell can find the executable. Add the path to
 your .bashrc/.zshrc. It is a legacy that former user didn't install `conda` to
 the system wide. Now `conda` has been installed to `/usr/bin/conda`, and the
-installation dir is at `/opt/anaconda3`, you shall have been added to the
+installation dir is at `/opt/anaconda3` or 'opt/anaconda' (check it in your
+machine), you shall have been added to the
 `condagp` group to have permission on conda. You should run your task in your
-own virtual environment.
+own virtual environment. 
+
+The admin have chosen to not have conda modify your shell scripts at all.
+To activate conda's base environment in your current shell session:
+
+eval "$(/opt/anaconda/bin/conda shell.YOUR\_SHELL\_NAME hook)"
+
+Replace YOUR\_SHELL\_NAME with bash or zsh.
+
+To install conda's shell functions for easier access, first activate, then:
+
+conda init
+
+If you'd prefer that conda's base environment not be activated on startup,
+   set the auto\_activate\_base parameter to false:
+
+conda config --set auto\_activate\_base false
+
+Thank you for installing Anaconda3!
+
+One last thing to remember that you'd better keep your env under your own home,
+try to configure your `.condarc', keep your envs and pkgs to home dir prior to
+the global dir in /opt/anaconda. You can use 'conda info' to check your
+configuration.
+
+If you have any problem with conda, try to refer its manual first and then try
+to seek help from mailing list.
 
 ### Q: How can I know if there is anyone else running jobs on CPU/GPU?
 A: At present, we have 2 __NVIDIA GeForce GTX 1080 Ti__ GPUs on each server. You
