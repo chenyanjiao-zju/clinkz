@@ -94,4 +94,36 @@ mounted at `/mnt/backup`, you can refer to the backup script in this project dir
 /server/cron/bashup.sh for detail. Normally, you should create a `crontab` job
 to do the periodical backup task. You should learn more on `cron`.
 
+## Task Management and Scheduling
+
+We use [slurm](https://slurm.schedmd.com/) to manage and schedule the CPU and GPU tasks. Bellow is the fast build for slurm in Ubuntu 20.04 (need 18.04 and newer) based on [this](https://gqqnbig.me/2021/01/27/slurm%E5%8D%95%E6%9C%BA%E6%9C%80%E7%AE%80%E5%AE%89%E8%A3%85%E5%85%A8%E7%90%83%E6%9C%80%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/#i). 
+
+```shell
+# is the commits
+$ wget https://gist.github.com/mslacken/4dbef54e55069b51178721cdf1c0107f/raw/d16bb23dd29dd1dacb2a984b32ba34865f355f5b/instant-slurm.sh
+$ sudo apt install munge # munge is use for communication between machines (optional)
+$ sudo apt install slurm-wlm slurm-wlm-doc -y 
+$ sudo sh instant-slurm.sh
+Wrote minimal instant slurm configuration to /var/slurm-llnl/slurm.conf
+Wrote /var/slurm-llnl/gres.conf
+$ sudo slurmctld -c -D # no saved state (-c) and foreground running (-D)
+# fix some bugs (syntax errors like GresType=gpu => Gres=gpu:2) and restart, using:
+# $ sudo vim /var/slurm-llnl/slurm.conf
+# another terminal
+$ sudo slurmd -D  
+# another terminal
+$ sinfo
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+normal*      up   infinite      1   idle localhost
+# if no problems, terminate the slurmctld and slurmd by Ctrl+C
+$ sudo systemctl start slurmctld
+# fix some bugs (PidFilePath=/var/run/slurmctld.pid) and restart
+$ sudo systemctl start slurmd # also some bugs
+$ sinfo
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+normal*      up   infinite      1   idle localhost
+$ srun -n1 --gres=gpu:1 nvidia-smi # test some tasks
+$ sudo systemctl enable slurmctld 
+$ sudo systemctl enable slurmd
+```
 
