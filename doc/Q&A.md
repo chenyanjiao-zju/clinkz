@@ -17,12 +17,12 @@ A: We recommend using [slurm](https://slurm.schedmd.com/) to submit your code on
 
    ```shell
    (base)$ conda activate pytorch
-   (pytorch)$ srun -c1 --gres=gpu:1 python main.py
+   (pytorch)$ srun -n1 -c1 --gres=gpu:1 python main.py
    ```
 
-   ,where the task uses one CPU (-c1) and one GPU (--gres=gpu:1). 
+   ,where the task uses one node (-n1), CPU (-c1) and one GPU (--gres=gpu:1). 
 
-   For short, just add `srun -c1 --gres=gpu:1` before the command will make your way. 
+   For short, just add `srun -n1 -c1 --gres=gpu:1` before the command will make your way. 
 
 3. `sbatch` is **recommended**. `sbatch` is used to submit a job script for later execution. If your code is run in bash, it is the easiest way to submit your code via slurm by adding some `#SBATCH` lines. If you run a python script, it is also easy. The sbatch file template is like [run.slurm](): 
 
