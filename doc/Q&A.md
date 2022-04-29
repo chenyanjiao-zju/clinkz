@@ -7,7 +7,45 @@ bother admin in private chat.
 
 ## On server
 
+### Q: How to submit my code for server computation? 
+
+A: We recommend using [slurm](https://slurm.schedmd.com/) to submit your code on the server. This [PDF](http://hmli.ustc.edu.cn/doc/userguide/slurm-userguide.pdf) is the Chinese tutorial for using slurm on the server. There are some ways:
+
+1. Normal commands for debugging. We leave ONE GPU for debugging: nvidia0(1080Ti) at the Black server. If you need to debug your code on the server, you can use this GPU. We note that in the near future, the tasks in this GPU are restricted and will be killed if other users want to use it.
+
+2. `srun` is used to submit a job for execution or initiate job steps in real-time (just like using the terminal). We will restrict the CPU and GPU use on normal commands(i.e., commands that are not submitted via slurm) in the near future. The use is like `srun [Options...] executable [args...]`. An example for GPU using is: 
+
+   ```shell
+   (base)$ conda activate pytorch
+   (pytorch)$ srun -n1 -c1 --gres=gpu:1 python main.py
+   ```
+
+   ,where the task uses one node (-n1), CPU (-c1) and one GPU (--gres=gpu:1). 
+
+   For short, just add `srun -n1 -c1 --gres=gpu:1` before the command will make your way. 
+
+3. `sbatch` is **recommended**. `sbatch` is used to submit a job script for later execution. If your code is run in bash, it is the easiest way to submit your code via slurm by adding some `#SBATCH` lines. If you run a python script, it is also easy. The sbatch file template is like [run.slurm](): 
+
+   ```bash
+   #!/bin/bash
+   #SBATCH -J test                 # 作业名
+   #SBATCH -o slurm.out              # 屏幕上的输出文件重定向到 ./slurm.out
+   #SBATCH --ntasks-per-node=1       # 任务启动的进程数为 1
+   #SBATCH --cpus-per-task=4         # 任务使用的 CPU 核心数为 4
+   #SBATCH -t 1:00:00                # 任务运行的最长时间为 1 小时
+   #SBATCH --gres=gpu:1              # 使用 1 块 GPU 卡
+   
+   # 设置运行环境，可以在命令行设置
+   # conda activate pytorch
+   
+   # 输入要执行的命令，例如 ./hello 或 python test.py 等
+   python main.py
+   ```
+
+   Then just run `sbatch run.slurm` will make your way.
+
 ### Q: How can I access the server?
+
 A: There are some ways:
 
 1. Teamviewer, [NOT recommend]. Teamviewer is based on monitor, and we'd not
